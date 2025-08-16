@@ -98,6 +98,9 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
+        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
         
         {/* Структурированные данные для WebApplication */}
         <script
@@ -160,7 +163,7 @@ export default function RootLayout({
               "@id": "https://utmtools.ru/#organization",
               name: "UTM Constructor",
               url: "https://utmtools.ru",
-              logo: "https://utmtools.ru/logo.png",
+              logo: "https://utmtools.ru/android-chrome-512x512.png",
               description: "Создаем инструменты для эффективного маркетинга и аналитики",
               sameAs: [
                 "https://github.com/az6ru/utmtools"
