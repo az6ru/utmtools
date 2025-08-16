@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# UTM Tools для Яндекс Директ
 
-## Getting Started
+Бесплатный конструктор UTM-меток для рекламных кампаний Яндекс Директ с расширенными возможностями.
 
-First, run the development server:
+## Возможности
+
+- Генерация UTM-меток с поддержкой всех динамических параметров Яндекс Директа
+- Автоматическая транслитерация названий кампаний с русского на латиницу
+- Создание быстрых ссылок с собственными UTM-метками
+- Копирование всех ссылок в один клик
+- Полностью адаптивный интерфейс
+
+## Технологии
+
+- Next.js 15
+- React 19
+- TypeScript
+- TailwindCSS
+- shadcn/ui компоненты
+
+## Установка и запуск
+
+### Для разработки
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Установка зависимостей
+pnpm install
+
+# Запуск режима разработки
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Для продакшена
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Сборка проекта
+pnpm build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Запуск в режиме production
+pnpm start
+```
 
-## Learn More
+## Лицензия
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
