@@ -21,7 +21,11 @@ import { toast } from "@/hooks/use-toast"
 // Расширяем интерфейс Window для Яндекс Метрики
 declare global {
   interface Window {
-    ym: (id: number, action: string, goal?: string) => void
+    ym: (id: number, action: string, goal?: string, params?: any) => void
+    ymParams: {
+      base_domain: string
+      campaign_name: string
+    }
   }
 }
 
@@ -201,9 +205,14 @@ const Page = () => {
       await navigator.clipboard.writeText(text)
       setCopiedStates((prev) => ({ ...prev, [buttonId]: true }))
 
-      if (typeof window !== "undefined" && window.ym) {
-        window.ym(103772260, "reachGoal", "link_copied")
-      }
+      // Отправляем цель копирования с параметрами
+      sendYandexMetrikaGoal("link_copied", {
+        button_id: buttonId,
+        link_type: buttonId === "main" ? "main_link" : "quick_link",
+        link_length: text.length,
+        contains_utm: text.includes("utm_"),
+        base_domain: baseUrl.replace(/^https?:\/\//, "")
+      })
 
       toast({
         title: "Скопировано!",
@@ -236,6 +245,32 @@ const Page = () => {
     await copyToClipboard(allLinks, "copy-all")
   }
 
+  // Функция для обновления параметров Яндекс Метрики
+  const updateYandexMetrikaParams = () => {
+    if (typeof window !== "undefined" && window.ymParams) {
+      const cleanUrl = baseUrl.replace(/^https?:\/\//, "")
+      window.ymParams = {
+        base_domain: cleanUrl,
+        campaign_name: fullCampaignName || ''
+      }
+    }
+  }
+
+  // Функция для отправки цели с параметрами
+  const sendYandexMetrikaGoal = (goal: string, additionalParams?: any) => {
+    if (typeof window !== "undefined" && window.ym) {
+      updateYandexMetrikaParams()
+      const params = {
+        ...window.ymParams,
+        ...additionalParams,
+        goal_type: goal,
+        timestamp: new Date().toISOString()
+      }
+      
+      window.ym(103772260, "reachGoal", goal, params)
+    }
+  }
+
   const generateQuickLinks = () => {
     if (!isValidUrl(baseUrl)) {
       toast({
@@ -258,6 +293,13 @@ const Page = () => {
       bs8: cleanUrl,
     }
     setQuickLinks(newQuickLinks)
+    
+    // Отправляем цель генерации быстрых ссылок
+    sendYandexMetrikaGoal("quick_links_generated", {
+      quick_links_count: Object.keys(newQuickLinks).length,
+      base_domain: cleanUrl
+    })
+    
     toast({
       title: "Быстрые ссылки сгенерированы!",
       description: "Автоматически созданы ссылки с базовым URL",
