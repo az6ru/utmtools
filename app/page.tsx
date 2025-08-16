@@ -18,6 +18,13 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Copy, ChevronDown, Info, Check } from "lucide-react"
 import { toast } from "@/hooks/use-toast"
 
+// Расширяем интерфейс Window для Яндекс Метрики
+declare global {
+  interface Window {
+    ym: (id: number, action: string, goal?: string) => void
+  }
+}
+
 const Page = () => {
   const [protocol, setProtocol] = useState("https://")
   const [baseUrl, setBaseUrl] = useState("")
@@ -259,12 +266,13 @@ const Page = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 font-sans">
+    <main className="min-h-screen bg-gray-50 py-8 px-4 font-sans">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
+        <header className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">UTM Конструктор для Яндекс Директ</h1>
-          <p className="text-gray-600">Генератор UTM-меток для рекламных кампаний</p>
-        </div>
+          <p className="text-gray-600 text-lg">Генератор UTM-меток для рекламных кампаний</p>
+          <p className="text-sm text-gray-500 mt-2">Создавайте профессиональные UTM-метки для эффективного отслеживания рекламных кампаний</p>
+        </header>
 
         <Card className="mb-6">
           <CardHeader>
@@ -602,7 +610,7 @@ const Page = () => {
           </Card>
         )}
       </div>
-    </div>
+    </main>
   )
 }
 
